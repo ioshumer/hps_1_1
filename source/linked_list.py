@@ -31,26 +31,44 @@ class LinkedList:
         return None
 
     def delete(self, val, all=False):
+        node = self.head
+        prev_node = None
+
+        while node is not None:
+            if node.value == val:
+                if self.head == self.tail == node:
+                    self.head = self.tail = None
+                elif self.head == node:
+                    self.head = node.next
+                elif self.tail == node:
+                    self.tail = prev_node
+                elif prev_node is not None:
+                    prev_node.next = node.next
+            else:
+                prev_node = node
+
+            node = node.next
+
         prev_node = None
         curr_node = self.head
 
         while curr_node is not None:
+
             if curr_node.value == val:
                 next_node = curr_node.next
+
                 if curr_node == self.head:
-                    self.head = next_node
-                    curr_node = next_node
-                elif prev_node:
-                    prev_node.next = next_node
-                    curr_node = next_node
-                if next_node is None:
+                    self.head = curr_node = next_node
+
+                if curr_node == self.tail:
                     self.tail = prev_node
-                    if prev_node is not None:
-                        prev_node.next = None
-                    return None
+                    break
+
+                if prev_node:
+                    prev_node.next = curr_node = next_node
 
                 if not all:
-                    return None
+                    break
             else:
                 prev_node = curr_node
                 curr_node = curr_node.next
@@ -121,7 +139,6 @@ def create_linked_list(list_of_values):
 
         right_node = Node(curr_value)
         left_node.next = right_node
-
         left_node = right_node
 
     linked_list.tail = right_node if right_node is not None else left_node

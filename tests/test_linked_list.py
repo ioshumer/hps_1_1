@@ -152,12 +152,17 @@ def test_delete():
     assert linked_list.head.value == 2
     assert linked_list.tail.value == 2
 
+    linked_list = create_linked_list([1, 2, 2])
+    linked_list.delete(2, all=True)
+    assert linked_list.len() == 1
+    assert linked_list.head.value == 1
+    assert linked_list.tail.value == 1
+
     linked_list = create_linked_list([1, 2, 3, 4, 5, 5])
     new_node = Node(5)
     linked_list.add_in_tail(new_node)
     assert linked_list.tail == new_node
 
     linked_list.delete(5, all=True)
-    linked_list.print_all_nodes()
     assert linked_list.tail.value == 4
     assert linked_list.as_list() == [1, 2, 3, 4]

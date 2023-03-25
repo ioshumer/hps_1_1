@@ -46,11 +46,30 @@ class LinkedList2:
     def add_in_head(self, newNode):
         pass  # здесь будет ваш код
 
+    def as_list(self):
+        node_values = []
+        node = self.head
+        while node is not None:
+            node_values.append(node.value)
+            node = node.next
+
 
 def create_bidirect_linked_list(list_of_values):
-    values_amount = len(list_of_values)
+    linked_list = LinkedList2()
 
+    values_amount = len(list_of_values)
     if len(values_amount) == 0:
         return LinkedList2
 
+    left_value = list_of_values[0]
+    left_node = Node(left_value)
+    right_node = None
 
+    linked_list.add_in_tail(left_node)
+
+    for value_index in range(1, values_amount):
+        value = list_of_values[value_index]
+        new_node = Node(value)
+        linked_list.add_in_tail(new_node)
+
+    return linked_list

@@ -49,30 +49,6 @@ class LinkedList:
 
             node = node.next
 
-        prev_node = None
-        curr_node = self.head
-
-        while curr_node is not None:
-
-            if curr_node.value == val:
-                next_node = curr_node.next
-
-                if curr_node == self.head:
-                    self.head = curr_node = next_node
-
-                if curr_node == self.tail:
-                    self.tail = prev_node
-                    break
-
-                if prev_node:
-                    prev_node.next = curr_node = next_node
-
-                if not all:
-                    break
-            else:
-                prev_node = curr_node
-                curr_node = curr_node.next
-
     def clean(self):
         self.head = None
         self.tail = None

@@ -80,46 +80,81 @@ def test_length(values_list):
 def test_insert():
     linked_list = LinkedList()
     n1 = Node(1)
-    linked_list.head = n1
-    linked_list.tail = n1
-
-    n2 = Node(3)
+    linked_list.add_in_tail(n1)
+    assert linked_list.head == n1
+    assert linked_list.tail == n1
+    n2 = Node(2)
     linked_list.insert(n1, n2)
-
+    assert linked_list.head == n1
+    assert linked_list.tail == n2
     assert linked_list.head.next == n2
     assert linked_list.tail == n2
+    assert linked_list.tail.next is None
 
     values = [1, 2, 3]
     linked_list = create_linked_list(values)
     value_1 = 5
-    n_1 = Node(value_1)
+    n1 = Node(value_1)
     value_2 = 15
     n2 = Node(value_2)
-
     tail = linked_list.tail
     linked_list.insert(tail, n2)
     linked_list.insert(tail, n1)
-
     assert n1.next == n2
 
 
 def test_sum_lists():
-    first_list_of_values = [1, 2, 3, 4, 5]
-    second_list_of_values = [10, 20, 30, 40, 50]
-
+    first_list_of_values = []
+    second_list_of_values = []
     first_linked_list = create_linked_list(first_list_of_values)
     second_linked_list = create_linked_list(second_list_of_values)
-
     summed_ll = sum_linked_lists(first_linked_list, second_linked_list)
+    assert summed_ll.as_list() == []
 
+    first_list_of_values = [1]
+    second_list_of_values = [10]
+    first_linked_list = create_linked_list(first_list_of_values)
+    second_linked_list = create_linked_list(second_list_of_values)
+    summed_ll = sum_linked_lists(first_linked_list, second_linked_list)
+    assert summed_ll.as_list() == [11]
+
+    first_list_of_values = [1, 2, 3, 4, 5]
+    second_list_of_values = [10, 20, 30, 40, 50]
+    first_linked_list = create_linked_list(first_list_of_values)
+    second_linked_list = create_linked_list(second_list_of_values)
+    summed_ll = sum_linked_lists(first_linked_list, second_linked_list)
     assert summed_ll.as_list() == [11, 22, 33, 44, 55]
 
 
 def test_delete():
+    linked_list = create_linked_list([])
+    linked_list.delete(Node(10), all=True)
+
+    linked_list = create_linked_list([1])
+    linked_list.delete(1, all=True)
+    assert linked_list.len() == 0
+
+    linked_list = create_linked_list([1, 1])
+    linked_list.delete(1, all=True)
+    assert linked_list.len() == 0
+    assert linked_list.tail is None
+    assert linked_list.head is None
+
+    linked_list = create_linked_list([1, 2])
+    linked_list.delete(1)
+    assert linked_list.len() == 1
+    assert linked_list.head.value == 2
+    assert linked_list.tail.value == 2
+
+    linked_list = create_linked_list([1, 1, 2])
+    linked_list.delete(1, all=True)
+    assert linked_list.len() == 1
+    assert linked_list.head.value == 2
+    assert linked_list.tail.value == 2
+
     linked_list = create_linked_list([1, 2, 3, 4, 5, 5])
     new_node = Node(5)
     linked_list.add_in_tail(new_node)
-
     assert linked_list.tail == new_node
 
     linked_list.delete(5, all=True)

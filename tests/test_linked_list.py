@@ -80,6 +80,12 @@ def test_length(values_list):
 def test_insert():
     linked_list = LinkedList()
     n1 = Node(1)
+    linked_list.insert(None, n1)
+    assert linked_list.head == n1
+    assert linked_list.len() == 1
+
+    linked_list = LinkedList()
+    n1 = Node(1)
     linked_list.add_in_tail(n1)
     assert linked_list.head == n1
     assert linked_list.tail == n1

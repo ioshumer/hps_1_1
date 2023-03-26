@@ -75,6 +75,10 @@ class LinkedList:
         return ctr
 
     def insert(self, afterNode: Node, newNode: Node):
+        if afterNode is None:
+            self.add_in_tail(newNode)
+            return None
+
         currNode = self.head
         while currNode is not None:
             if currNode == afterNode:

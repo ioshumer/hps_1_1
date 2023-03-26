@@ -25,11 +25,17 @@ class LinkedList2:
         while node is not None:
             if node.value == val:
                 return node
-
             node = node.next
+        return None
 
     def find_all(self, val):
-        return []  # здесь будет ваш код
+        finded_nodes = []
+        node = self.head
+        while node is not None:
+            if node.value == val:
+                finded_nodes.append(node)
+            node = node.next
+        return finded_nodes
 
     def delete(self, val, all=False):
         pass  # здесь будет ваш код
@@ -52,18 +58,18 @@ class LinkedList2:
         while node is not None:
             node_values.append(node.value)
             node = node.next
+        return node_values
 
 
 def create_bidirect_linked_list(list_of_values):
     linked_list = LinkedList2()
 
     values_amount = len(list_of_values)
-    if len(values_amount) == 0:
-        return LinkedList2
+    if values_amount == 0:
+        return linked_list
 
     left_value = list_of_values[0]
     left_node = Node(left_value)
-    right_node = None
 
     linked_list.add_in_tail(left_node)
 

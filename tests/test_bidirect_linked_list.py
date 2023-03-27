@@ -61,7 +61,45 @@ def test_find(values, finding_value, result):
         ([2, 1, 2], 2, [2, 2]),
     ]
 )
-def test_find(values, finding_value, result):
+def test_find_all(values, finding_value, result):
     linked_list = create_bidirect_linked_list(values)
     found_result = [node.value for node in linked_list.find_all(finding_value)]
     assert found_result == result
+
+
+@pytest.mark.parametrize(
+    ('linked_list_values', 'value_to_delete', 'all_', 'as_list', 'head_value', 'tail_value', 'length'),
+    [
+        ([], 13, False, [], None, None, 0),
+        ([], 13, True, [], None, None, 0),
+        ([13], 1, False, [13], 13, 13, 1),
+        ([13], 1, True, [13], 13, 13, 1),
+        ([13], 13, False, [], None, None, 0),
+        ([13], 13, True, [], None, None, 0),
+        ([13, 13], 1, False, [13, 13], 13, 13, 2),
+        ([13, 13], 1, True, [13, 13], 13, 13, 2),
+        ([13, 13], 13, False, [13], 13, 13, 1),
+        ([13, 13], 13, True, [], None, None, 0),
+        ([13, 13, 100], 13, False, [13, 100], 13, 100, 2),
+        ([13, 13, 100], 13, True, [100], 100, 100, 1),
+        ([13, 13, 100], 100, False, [13, 13], 13, 13, 2),
+        ([13, 13, 100, 100], 13, False, [13, 100, 100], 13, 100, 3),
+        ([13, 13, 100, 100], 100, False, [13, 13, 100], 13, 100, 3),
+        ([13, 13, 100, 100], 100, True, [13, 13], 13, 13, 2),
+        ([13, 13, 100, 100, 404, 404], 100, False, [13, 13, 100, 404, 404], 13, 404, 5),
+        ([13, 13, 100, 100, 404, 404], 100, True, [13, 13, 404, 404], 13, 404, 4)
+    ]
+)
+def test_delete(linked_list_values, value_to_delete, all_, as_list, tail_value, head_value, length):
+    linked_list = create_bidirect_linked_list(linked_list_values)
+    linked_list.delete(value_to_delete, all=all_)
+    assert linked_list.as_list() == as_list
+    if linked_list.head is not None:
+        assert linked_list.head.value == head_value
+    else:
+        assert linked_list.head is head_value
+    if linked_list.tail is not None:
+        assert linked_list.tail.value == tail_value
+    else:
+        assert linked_list.tail is tail_value
+    assert linked_list.len() == length

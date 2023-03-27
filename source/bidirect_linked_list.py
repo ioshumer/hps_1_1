@@ -38,13 +38,42 @@ class LinkedList2:
         return finded_nodes
 
     def delete(self, val, all=False):
-        pass  # здесь будет ваш код
+        node = self.head
+        while node is not None:
+            if node.value == val:
+                if node is self.head:
+                    if node.next is None:
+                        self.head = None
+                        self.tail = None
+                    else:
+                        self.head = node.next
+                elif node is self.tail:
+                    prev = self.tail.prev
+                    prev.next = None
+                    self.tail = prev
+                else:
+                    prev = node.prev
+                    next = node.next
+                    if prev:
+                        prev.next = next
+                    if next:
+                        next.prev = prev
+
+                if not all:
+                    break
+
+            node = node.next
 
     def clean(self):
         pass  # здесь будет ваш код
 
     def len(self):
-        return 0  # здесь будет ваш код
+        ctr = 0
+        node = self.head
+        while node is not None:
+            ctr += 1
+            node = node.next
+        return ctr
 
     def insert(self, afterNode, newNode):
         pass  # здесь будет ваш код

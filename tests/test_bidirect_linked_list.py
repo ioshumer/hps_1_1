@@ -126,9 +126,15 @@ def test_find_all(values, finding_value, result):
         ([13, 13], 1, True, [13, 13], 13, 13, 2),
         ([13, 13], 13, False, [13], 13, 13, 1),
         ([13, 13], 13, True, [], None, None, 0),
+        ([1, 2], 1, False, [2], 2, 2, 1),
+        ([1, 2], 2, False, [1], 1, 1, 1),
         ([13, 13, 100], 13, False, [13, 100], 13, 100, 2),
         ([13, 13, 100], 13, True, [100], 100, 100, 1),
         ([13, 13, 100], 100, False, [13, 13], 13, 13, 2),
+
+        ([13, 100, 100], 100, False, [13, 100], 13, 100, 2),
+        ([13, 100, 100], 100, True, [13], 13, 13, 1),
+
         ([13, 13, 100, 100], 13, False, [13, 100, 100], 13, 100, 3),
         ([13, 13, 100, 100], 100, False, [13, 13, 100], 13, 100, 3),
         ([13, 13, 100, 100], 100, True, [13, 13], 13, 13, 2),
@@ -137,7 +143,7 @@ def test_find_all(values, finding_value, result):
     ]
 )
 def test_delete(linked_list_values, value_to_delete, all_, as_list, tail_value, head_value, length):
-    linked_list = create_from_values(linked_list_values)
+    linked_list = create_from_nodes(linked_list_values)
     linked_list.delete(value_to_delete, all=all_)
     assert linked_list.as_list() == as_list
     if linked_list.head is not None:

@@ -52,12 +52,6 @@ def test_insert(array_values, final_capacity, inserting_idx, inserting_value, fi
     assert dyn_arr.as_list() == final_array
 
 
-testing_delete_args = (
-    'initial_array', 'final_array', 'deleted_idx',
-    'initial_capacity', 'initial_counter', 'final_capacity', 'final_counter',
-)
-
-
 def get_dynamic_array_from_list(array_values):
     dyn_arr = DynArray()
     for value in array_values:
@@ -66,7 +60,10 @@ def get_dynamic_array_from_list(array_values):
 
 
 @pytest.mark.parametrize(
-    testing_delete_args,
+    (
+        'initial_array', 'final_array', 'deleted_idx',
+        'initial_capacity', 'initial_counter', 'final_capacity', 'final_counter',
+    ),
     [
         # without capacity reducing
         ([1], [], 0, 16, 1, 16, 0),
@@ -74,11 +71,11 @@ def get_dynamic_array_from_list(array_values):
         ([1, 2], [1], 1, 16, 2, 16, 1),
         ([1, 2, 3], [1, 3], 1, 16, 3, 16, 2),
         (list(range(16)), list(range(15)), 15, 16, 16, 16, 15),
-        #with capacity reducing
+        # with capacity reducing
         (list(range(17)), list(range(16)), 16, 32, 17, 16, 16),
     ]
 )
-def test_delete_on_capacity(
+def test_delete_without_capacity_reducing(
         initial_array, final_array, deleted_idx,
         initial_capacity, initial_counter, final_capacity, final_counter
 ):
@@ -86,6 +83,33 @@ def test_delete_on_capacity(
     assert dyn_arr.capacity == initial_capacity
     assert dyn_arr.count == initial_counter
     dyn_arr.delete(deleted_idx)
+    assert dyn_arr.as_list() == final_array
+    assert dyn_arr.capacity == final_capacity
+    assert dyn_arr.count == final_counter
+
+
+@pytest.mark.parametrize(
+    (
+        'initial_array', 'final_array', 'deleted_idx_list',
+        'initial_capacity', 'initial_counter', 'final_capacity', 'final_counter',
+    ),
+    [
+        # with capacity reducing
+        (list(range(17)), list(range(16)), [16], 32, 17, 32, 16),
+        (list(range(17)), list(range(15)), [16, 15], 32, 17, 21, 15),
+        (list(range(17)), [], list(range(16, -1, -1)), 32, 17, 16, 0),
+        (list(range(33)), list(range(31)), [32, 31], 64, 33, 42, 31)
+    ]
+)
+def test_delete_without_capacity_reducing(
+        initial_array, final_array, deleted_idx_list,
+        initial_capacity, initial_counter, final_capacity, final_counter
+):
+    dyn_arr = get_dynamic_array_from_list(initial_array)
+    assert dyn_arr.capacity == initial_capacity
+    assert dyn_arr.count == initial_counter
+    for idx in deleted_idx_list:
+        dyn_arr.delete(idx)
     assert dyn_arr.as_list() == final_array
     assert dyn_arr.capacity == final_capacity
     assert dyn_arr.count == final_counter
@@ -105,4 +129,3 @@ def test_delete_on_incorrect_index(initial_array, deleted_idx):
     if deleted_idx >= len(dyn_arr):
         with pytest.raises(IndexError):
             dyn_arr.delete(deleted_idx)
-

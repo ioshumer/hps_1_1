@@ -82,7 +82,7 @@ class DynArray:
         self.count -= 1
 
         capacity_bound = int((self.count / self.capacity) * 100)
-        if (capacity_bound <= 50) and (capacity_bound > self.default_capacity):
+        if (capacity_bound < 50) and (capacity_bound > self.default_capacity):
             new_capacity = int(16 / 1.5)
             new_capacity = new_capacity if new_capacity > self.default_capacity else self.default_capacity
             self.resize(new_capacity)

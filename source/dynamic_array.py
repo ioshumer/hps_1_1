@@ -41,7 +41,7 @@ class DynArray:
     def insert(self, i, itm):
         # В тестах используется схема, когда увеличение буфера происходит в два раза,
         # Увеличение буфера выполняем, когда он весь полностью заполнен, и выполняется попытка добавления.
-        if i < 0 or i >= self.count:
+        if i < 0 or i > self.count:
             raise IndexError('Index is out of bounds')
 
         new_array_capacity = 2 * self.capacity if self.count == self.capacity else self.capacity

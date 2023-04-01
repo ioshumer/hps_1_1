@@ -24,19 +24,19 @@ def test_append(array_values, length, first, last, capacity):
 
 
 @pytest.mark.parametrize(
-    ('array_values', 'final_capacity', 'inserting_idx', 'inserting_value', 'final_array'),
+    ('array_values', 'final_capacity', 'inserting_idx', 'inserting_value', 'final_array', 'final_counter'),
     [
-        ([], 16, 0, 1, [1]),  # вставка в пустой массив
-        ([2], 16, 0, 1, [1, 2]),  # вставка первым
-        ([1], 16, 1, 2, [1, 2]),  # вставка вторым
-        ([1, 3], 16, 1, 2, [1, 2, 3]),  # вставка в середину
-        ([i for i in range(15)], 16, 15, 100, [i for i in range(15)] + [100]),  # вставка крайнего до увеличения
-        ([i for i in range(16)], 32, 16, 100, [i for i in range(16)] + [100]),  # вставка с увеличением capacity
-        ([i for i in range(16)], 32, 17, 100, [i for i in range(16)] + [100]),  # вставка в недопустимую позицию
-        ([i for i in range(16)], 32, -1, 100, [i for i in range(16)] + [100]),  # вставка в недопустимую позицию
+        ([], 16, 0, 1, [1], 1),  # вставка в пустой массив
+        ([2], 16, 0, 1, [1, 2], 2),  # вставка первым
+        ([1], 16, 1, 2, [1, 2], 2),  # вставка вторым
+        ([1, 3], 16, 1, 2, [1, 2, 3], 3),  # вставка в середину
+        ([i for i in range(15)], 16, 15, 100, [i for i in range(15)] + [100], 16),  # вставка крайнего до увеличения
+        ([i for i in range(16)], 32, 16, 100, [i for i in range(16)] + [100], 16),  # вставка с увеличением capacity
+        ([i for i in range(16)], 32, 17, 100, [i for i in range(16)] + [100], 16),  # вставка в недопустимую позицию
+        ([i for i in range(16)], 32, -1, 100, [i for i in range(16)] + [100], 16),  # вставка в недопустимую позицию
     ]
 )
-def test_insert(array_values, final_capacity, inserting_idx, inserting_value, final_array):
+def test_insert(array_values, final_capacity, inserting_idx, inserting_value, final_array, final_counter):
     dyn_arr = DynArray()
     for item in array_values:
         dyn_arr.append(item)

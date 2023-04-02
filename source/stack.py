@@ -193,4 +193,3 @@ class Stack:
 
     def peek(self):
         return self.stack.get_head()
-

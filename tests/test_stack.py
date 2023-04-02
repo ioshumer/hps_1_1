@@ -58,3 +58,26 @@ def test_stack_size(input_array, expected_stack_size):
         stack.push(value)
 
     assert stack.size() == expected_stack_size
+
+
+@pytest.mark.parametrize(
+    ('initial_array', 'additional_item', 'final_stack_size', 'final_array'),
+    [
+        ([1], 2, 2, [2, 1]),
+    ]
+)
+def test_push(initial_array, additional_item, final_stack_size, final_array):
+    stack = Stack()
+    for value in initial_array:
+        stack.push(value)
+    stack.push(additional_item)
+
+    assert stack.size() == final_stack_size
+
+    stack_output = []
+    while stack.size() > 0:
+        value = stack.pop()
+        stack_output.append(value)
+
+    assert stack_output == final_array
+    assert stack.size() == 0

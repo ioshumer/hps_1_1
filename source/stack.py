@@ -123,10 +123,10 @@ class DoublyLinkedList:
             node = node.next
 
     def get_head(self):
-        return self.head
+        return self.head.value
 
     def get_tail(self):
-        return self.tail
+        return self.tail.value
 
 
 def create_from_values(list_of_values):
@@ -193,3 +193,4 @@ class Stack:
 
     def peek(self):
         return self.stack.get_head()
+

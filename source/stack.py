@@ -123,10 +123,10 @@ class DoublyLinkedList:
             node = node.next
 
     def get_head(self):
-        return self.head.value
+        return self.head.value if self.head is not None else None
 
     def get_tail(self):
-        return self.tail.value
+        return self.tail.value if self.tail is not None else None
 
 
 def create_from_values(list_of_values):

@@ -1,6 +1,6 @@
 import pytest
 
-from source.twoway_queue import TwoWayQueue, Node
+from source.twoway_queue import Deque, Node
 
 
 @pytest.mark.parametrize(
@@ -13,7 +13,7 @@ from source.twoway_queue import TwoWayQueue, Node
     ]
 )
 def test_add_front_remove_tail(list_of_values, exptected_array, size):
-    queue = TwoWayQueue()
+    queue = Deque()
     for item in list_of_values:
         queue.addFront(item)
     assert queue.size() == size
@@ -37,7 +37,7 @@ def test_add_front_remove_tail(list_of_values, exptected_array, size):
     ]
 )
 def test_add_tail_remove_front(list_of_values, exptected_array, size):
-    queue = TwoWayQueue()
+    queue = Deque()
     for item in list_of_values:
         queue.addFront(item)
     assert queue.size() == size
@@ -61,7 +61,7 @@ def test_add_tail_remove_front(list_of_values, exptected_array, size):
     ]
 )
 def test_add_front_remove_front(list_of_values, exptected_array, size):
-    queue = TwoWayQueue()
+    queue = Deque()
     for item in list_of_values:
         queue.addFront(item)
     assert queue.size() == size
@@ -85,7 +85,7 @@ def test_add_front_remove_front(list_of_values, exptected_array, size):
     ]
 )
 def test_add_tail_remove_tail(list_of_values, exptected_array, size):
-    queue = TwoWayQueue()
+    queue = Deque()
     for item in list_of_values:
         queue.addTail(item)
     assert queue.size() == size

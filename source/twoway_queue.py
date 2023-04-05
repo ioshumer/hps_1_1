@@ -5,7 +5,7 @@ class Node:
         self.next = None
 
 
-class TwoWayQueue:
+class Deque:
     def __init__(self):
         self.front: Node = None
         self.tail: Node = None

@@ -58,6 +58,10 @@ class OrderedList:
                 self.counter += 1
                 return
             else:
+                if pointer.next is None:
+                    self.insert_to_the_right(new_node, pointer)
+                    self.counter += 1
+                    return
                 pointer = pointer.next
 
         self.insert_to_the_right(new_node, pointer)

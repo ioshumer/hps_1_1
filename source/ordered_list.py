@@ -28,7 +28,13 @@ class OrderedList:
         return self._compare(v1, v2)
 
     def insert_to_the_left(self, new_node: Node, pointer: Node):
-        pointer.prev = new_node
+        if pointer.prev is not None:
+            pointer_prev = pointer.prev
+            pointer_prev.next = new_node
+            new_node.prev = pointer_prev
+        else:
+            pointer.prev = new_node
+
         new_node.next = pointer
 
         if pointer is self.head:
@@ -79,11 +85,39 @@ class OrderedList:
             pointer = pointer.next
 
     def delete(self, val):
-        self.counter -= 1
+        pointer = self.head
+
+        if pointer is None:
+            return None
+
+        while pointer is not None:
+            if pointer.value == val:
+                if pointer is self.head and pointer is self.tail:
+                    self.head = self.tail = None
+                elif pointer.value == val and pointer is self.head:
+                    next_to_head = self.head.next
+                    next_to_head.prev = None
+                    self.head = next_to_head
+                elif pointer.value == val and pointer is self.tail:
+                    prev_to_tail = self.tail.prev
+                    prev_to_tail.next = None
+                    self.tail = prev_to_tail
+                elif pointer.value == val:
+                    prev = pointer.prev
+                    next = pointer.next
+                    prev.next = next
+                    next.prev = prev
+                else:
+                    raise BaseException("Untracked case")
+                self.counter -= 1
+                return
+            else:
+                pointer = pointer.next
 
     def clean(self, asc):
         self.__ascending = asc
         self.tail = self.head = None
+        self.counter = 0
 
     def len(self):
         return self.counter

@@ -32,11 +32,8 @@ class OrderedList:
             pointer_prev = pointer.prev
             pointer_prev.next = new_node
             new_node.prev = pointer_prev
-        else:
-            pointer.prev = new_node
-
+        pointer.prev = new_node
         new_node.next = pointer
-
         if pointer is self.head:
             self.head = new_node
 
@@ -122,12 +119,18 @@ class OrderedList:
     def len(self):
         return self.counter
 
-    def get_all(self):
+    def get_all(self, asc=True):
         r = []
-        node = self.head
-        while node is not None:
-            r.append(node)
-            node = node.next
+        if asc:
+            node = self.head
+            while node is not None:
+                r.append(node)
+                node = node.next
+        else:
+            node = self.tail
+            while node is not None:
+                r.append(node)
+                node = node.prev
         return r
 
 

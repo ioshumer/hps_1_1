@@ -11,7 +11,7 @@ class HashTable:
 
     def seek_slot(self, value):
         hash = self.hash_fun(value)
-        hash_idx = initial_hash_idx = self.slots[hash]
+        hash_idx = initial_hash_idx = hash
         mod_trigger = False
 
         while True:
@@ -21,22 +21,15 @@ class HashTable:
             hash_idx += self.step
             if hash_idx >= self.size:
                 mod_trigger = True
-                hash_idx = (hash_idx + self.step) % self.size
+                hash_idx = hash_idx % self.size
             if mod_trigger and hash_idx >= initial_hash_idx:
                 return None
 
-        #   0   1   2   3   4   5   6   7   8   9
-        #   -       -       -       -       -
-        return None
-
     def put(self, value):
-        # записываем значение по хэш-функции
-
-        # возвращается индекс слота или None,
-        # если из-за коллизий элемент не удаётся
-        # разместить
-        return None
+        slot_idx = self.seek_slot(value)
+        if slot_idx is not None:
+            self.slots[slot_idx] = value
+        return slot_idx
 
     def find(self, value):
-        # находит индекс слота со значением, или None
-        return None
+        return self.seek_slot(value)

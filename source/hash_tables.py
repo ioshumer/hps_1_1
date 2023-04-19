@@ -32,4 +32,6 @@ class HashTable:
         return slot_idx
 
     def find(self, value):
-        return self.seek_slot(value)
+        for slot_idx, slot_value in enumerate(self.slots):
+            if slot_value == value:
+                return slot_idx

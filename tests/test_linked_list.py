@@ -1,6 +1,50 @@
 import pytest
 
-from source.linked_list import Node, LinkedList, create_linked_list, sum_linked_lists
+from source.linked_list import Node, LinkedList
+
+
+def create_linked_list(list_of_values):
+    linked_list = LinkedList()
+
+    list_length = len(list_of_values)
+    if list_length == 0:
+        return linked_list
+
+    left_value = list_of_values[0]
+    left_node = Node(left_value)
+
+    linked_list.head = left_node
+
+    right_node = None
+
+    for value_index in range(1, list_length):
+        curr_value = list_of_values[value_index]
+
+        right_node = Node(curr_value)
+        left_node.next = right_node
+        left_node = right_node
+
+    linked_list.tail = right_node if right_node is not None else left_node
+
+    return linked_list
+
+
+def sum_linked_lists(first_ll: LinkedList, second_ll: LinkedList):
+    if not first_ll.len() == second_ll.len():
+        return None
+
+    summed_values = []
+    first_node = first_ll.head
+    second_node = second_ll.head
+    while first_node is not None:
+        sum_values = first_node.value + second_node.value
+        summed_values.append(sum_values)
+        first_node = first_node.next
+        second_node = second_node.next
+
+    summed_linked_list = create_linked_list(summed_values)
+
+    return summed_linked_list
 
 
 def test_linked_list_creation():

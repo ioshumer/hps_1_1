@@ -49,9 +49,6 @@ class PowerSet:
         for item in self.data:
             if not set2.get(item):
                 diff.put(item)
-        for item in set2.data:
-            if not self.get(item):
-                diff.put(item)
         return diff
 
     def issubset(self, set2):

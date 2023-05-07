@@ -114,7 +114,7 @@ def test_diff(first_list, second_list):
     ps = ps1.difference(ps2)
 
     for elem in ps.data:
-        assert (ps1.get(elem) is False or ps2.get(elem) is False)
+        assert (ps1.get(elem) is True and ps2.get(elem) is False)
 
 
 @pytest.mark.parametrize(

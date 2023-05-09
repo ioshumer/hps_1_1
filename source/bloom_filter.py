@@ -17,7 +17,7 @@ class BloomFilter:
 
     def _check_bit(self, idx):
         result = (self.bitmask >> idx) & 1
-        return result == '1'
+        return result == 1
 
     def hash1(self, str1):
         rand_val = 17

@@ -41,5 +41,3 @@ def test_collisions_resolve():
     new_key_idx = nc.find_key_idx(new_key)
 
     assert key_to_remove_idx == new_key_idx
-
-    print()
